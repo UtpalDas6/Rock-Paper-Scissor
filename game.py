@@ -1,9 +1,19 @@
+'''This is a multiline
+comment'''
+#This is a single line comment
+
 import random,os
+'''Random is used to choose a random option from list of options.
+       OS is used to access operting system properties.'''
+
 opt=["rock","paper","scissor"]
 p1c=0
 p2c=0
-os.system('cls' if os.name == 'nt' else 'clear')
-print("*"*30, " ROCK | PAPER | SCISSOR ", "*"*30, "\n"*2)
+os.system('cls' if os.name == 'nt' else 'clear') #Clears command prompt screen for better user experience
+
+print("*"*30, " ROCK | PAPER | SCISSOR ", "*"*30, "\n"*2) #Game Banner
+
+#User input for names of player one and two. With Empty name validation
 p1_name = str(input(" "*30+"Enter Player 1 Name:"))
 while len(p1_name)==0:
     p1_name = str(
@@ -12,6 +22,8 @@ p2_name = str(input(" "*30+"Enter Player 2 Name:"))
 while len(p2_name)==0:
     p2_name = str(
         input(" "*30, "Name cannot be empty! Please Enter Player 2 Name:"))
+
+'''Three Rounds in total'''
 for i in range(0,3):
     p1=random.choice(opt)
     p2=random.choice(opt)
