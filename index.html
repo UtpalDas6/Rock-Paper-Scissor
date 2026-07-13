@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rock · Paper · Scissors — 3D</title>
+  <link rel="stylesheet" href="style.css" />
+  <script type="importmap">
+    { "imports": { "three": "https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.module.js" } }
+  </script>
+</head>
+<body>
+  <canvas id="scene"></canvas>
+
+  <div id="lobby">
+    <h1>Rock · Paper · Scissors</h1>
+    <p class="sub">Play a friend on another device</p>
+    <button id="createGame">Create Game</button>
+    <div class="divider">or</div>
+    <div class="join-row">
+      <input id="joinCode" maxlength="4" placeholder="CODE" autocomplete="off" />
+      <button id="joinGame">Join</button>
+    </div>
+    <p id="lobbyStatus"></p>
+  </div>
+
+  <div id="ui">
+    <div id="scoreboard">
+      <span class="score"><span id="playerScore">0</span> YOU</span>
+      <span class="vs">vs</span>
+      <span class="score">OPPONENT <span id="cpuScore">0</span></span>
+    </div>
+
+    <div id="banner"></div>
+
+    <div id="choices">
+      <button class="choice" data-choice="rock" aria-label="Rock" disabled>🪨</button>
+      <button class="choice" data-choice="paper" aria-label="Paper" disabled>📄</button>
+      <button class="choice" data-choice="scissors" aria-label="Scissors" disabled>✂️</button>
+    </div>
+  </div>
+
+  <script type="module" src="game.js"></script>
+</body>
+</html>
