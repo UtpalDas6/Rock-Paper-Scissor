@@ -349,11 +349,36 @@ const joinCodeInput = document.getElementById('joinCode');
 
 let socket, mySlot;
 
+// Free-tier hosts (e.g. Render) spin down after idle and take ~30-60s to wake on
+// the next request, so a single failed attempt doesn't mean the server is down.
+const MAX_CONNECT_ATTEMPTS = 15;
+
 function connect(onOpen) {
-  socket = new WebSocket(WS_URL);
-  socket.onopen = onOpen;
-  socket.onerror = () => { lobbyStatus.textContent = 'Could not reach the server. Is it running?'; };
-  socket.onmessage = (e) => handleServerMessage(JSON.parse(e.data));
+  let attempt = 0;
+
+  function tryConnect() {
+    attempt++;
+    let opened = false;
+    socket = new WebSocket(WS_URL);
+
+    socket.onopen = () => { opened = true; onOpen(); };
+    socket.onmessage = (e) => handleServerMessage(JSON.parse(e.data));
+
+    socket.onclose = () => {
+      if (opened) {
+        if (lobby.style.display !== 'none') lobbyStatus.textContent = 'Disconnected.';
+        return;
+      }
+      if (attempt < MAX_CONNECT_ATTEMPTS) {
+        lobbyStatus.textContent = `Waking up server… (this can take up to a minute)`;
+        setTimeout(tryConnect, 4000);
+      } else {
+        lobbyStatus.textContent = 'Could not reach the server. Try again in a moment.';
+      }
+    };
+  }
+
+  tryConnect();
 }
 
 function handleServerMessage(msg) {
