@@ -339,7 +339,7 @@ buttons.forEach((b) => b.addEventListener('click', () => {
 // Same machine (testing) uses the local relay; anywhere else uses the deployed Render service.
 const WS_URL = ['localhost', '127.0.0.1'].includes(location.hostname)
   ? 'ws://localhost:8787'
-  : 'wss://rock-paper-scissor-server.onrender.com';
+  : 'wss://https://rock-paper-scissor-server-5rsz.onrender.com/';
 
 const lobby = document.getElementById('lobby');
 const lobbyStatus = document.getElementById('lobbyStatus');
